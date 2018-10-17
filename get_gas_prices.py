@@ -43,6 +43,23 @@ def retrieve_gas_prices(zipcode: int) -> str:
 
 def parse_html(html) -> List:
     """
+    Using the raw html passed in, returns the gas price, name, address
+    of each station listed in the html.
+
+    The prices, names, and address elements are hard coded since
+    these had to be predetermined while exploring the raw html. If one
+    visits the global GAS_PRICES_ADDRESS, these patterns are recurrent
+    among most pages.
+
+    Parameters
+    ----------
+    html: The raw html that will be parsed for bs4 to retrieve relevant
+    data.
+
+    Returns
+    -------
+    names, addresses, prices: Lists of names, addresses, and prices for
+    all gas stations listed in the html.
     """
     prices_element = 'span[class*="styles__price"]'
     station_name_element = 'h3[class*="styles__stationNameHeader"]'
