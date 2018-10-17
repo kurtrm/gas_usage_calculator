@@ -75,6 +75,19 @@ def parse_html(html) -> List:
 
 def get_gas_information(zipcode: int=98105) -> List[dict]:
     """
+    Utilizes the retrieve_gas_prices function, passes its return
+    value to the parse_html function, and creates a json-like
+    object available for further processing.
+
+    Parameters
+    ----------
+    zipcode: Passed to the retrieve_gas_prices function with
+    a default zip to a Seattle zip code.
+
+    Returns
+    -------
+    list of dictionaries: List of dictionaries containing
+    pertinent information about each gas station in the zipcode.
     """
     fuel_prices_html = retrieve_gas_prices(zipcode)
     names, addresses, prices = parse_html(fuel_prices_html)
