@@ -1,4 +1,6 @@
 """
+Module containing functions to retrieve gas prices from popular gas
+price reporting website.
 """
 from typing import List
 
@@ -7,11 +9,28 @@ from requests.exceptions import RequestException
 
 import requests
 
+
 GAS_PRICES_ADDRESS = 'https://www.gasbuddy.com/home?search={}&fuel=1'
 
 
 def retrieve_gas_prices(zipcode: int) -> str:
     """
+    Function using the requests library to retrieve
+    html from website.
+
+    Parameters
+    ----------
+    zipcode: The zipcode from which to retrieve gas prices.
+             This is passed into the global address string.
+
+    Returns
+    -------
+    string: The html content to be parsed by bs4.
+
+    Exceptions
+    ----------
+    RequestException: Raises an exception if a status code
+    other than 200 is received.
     """
     full_query = GAS_PRICES_ADDRESS.format(zipcode)
     response = requests.get(full_query)
