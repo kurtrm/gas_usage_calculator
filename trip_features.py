@@ -5,6 +5,9 @@ API, and return the total number of miles on the route.
 import os
 
 import googlemaps
+import requests
+
+from bs4 import BeautifulSoup
 
 
 def get_maps_data(start_point: str, end_point: str, api_key: str=None) -> str:
@@ -36,3 +39,23 @@ def parse_dist_text(text: str) -> float:
                 continue
         else:
             raise ValueError('Unable to parse distance from string')
+
+
+def get_gas_mileage(year: str, make: str, model: str) -> str:
+    """
+    """
+    fueleconomy_car_menu = 'https://www.fueleconomy.gov/'
+    'ws/rest/vehicle/menu/options?year={}&make={}&model={}'.format(year, make, model)
+
+    fueleconomy_car_info = 'https://www.fueleconomy.gov/ws/rest/vehicle/{}'
+
+    menu_response = requests.get(fueleconomy_car_menu)
+    menu_soup = BeautifulSoup(menu_response.content, 'html.parser')
+    car_id = menu_soup.find('value').text
+    car_response = requests.get(fueleconomy_car_info.format(car_id))
+    car_soup = BeautifulSoup(car_response.content, 'html.parser')
+    car_mileage_highway = car_soup.find('highway08').text
+    car_mileage_city = car_soup.find('city08').text
+    car_mileage_combined = car_soup.find('comb08').text
+
+    return car_mileage_highway, car_mileage_city, car_mileage_combined
