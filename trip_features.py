@@ -1,11 +1,13 @@
 """
+Module containing functions to calculate routes via the Google Maps
+API, and return the total number of miles on the route.
 """
 import os
 
 import googlemaps
 
 
-def get_maps_data(start_point, end_point, api_key: str=None):
+def get_maps_data(start_point: str, end_point: str, api_key: str=None) -> str:
     """
     """
     if api_key is None:
@@ -21,7 +23,7 @@ def get_maps_data(start_point, end_point, api_key: str=None):
     return total_dist
 
 
-def parse_dist_text(text):
+def parse_dist_text(text: str) -> float:
     """
     """
     try:
